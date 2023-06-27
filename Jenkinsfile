@@ -24,10 +24,10 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh 'kubectl get nodes'
-                // sh 'kubectl apply -f deployment.yaml'
-                // sh 'kubectl apply -f service.yaml'
-                // sh 'kubectl get service rocky-service'
-                // sh 'kubectl rollout restart deployment rocky-deployment'
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
+                sh 'kubectl get service rocky-service'
+                sh 'kubectl rollout restart deployment rocky-deployment'
             }
         }
     }
