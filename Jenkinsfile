@@ -9,17 +9,17 @@ pipeline {
             }
         }
 
-        stage('Build Docker image') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'jenkins', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                        sh 'docker build -t dj322/rockyhtml.'
-                        sh 'docker push dj322/rockyhtml'
-                    }
-                }
-            }
-        }
+        // stage('Build Docker image') {
+        //     steps {
+        //         script {
+        //             withCredentials([usernamePassword(credentialsId: 'jenkins', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //                 sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+        //                 sh 'docker build -t dj322/rockyhtml.'
+        //                 sh 'docker push dj322/rockyhtml'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Deploy to Kubernetes') {
             steps {
