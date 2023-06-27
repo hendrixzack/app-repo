@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Market Live Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .stockData {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .stockData p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stock Market Live Data</h1>
+
+  <!-- Stock data will be displayed here -->
+  <div id="stockData"></div>
+
+  <script>
+    // Function to fetch stock market data
+    function fetchStockData() {
+      const symbols = ['AAPL', 'GOOGL', 'MSFT']; // Example stock symbols
+      const apiKey = 'SEZ9M150H7KJBVKO'; // Replace with your actual API key
+
+      symbols.forEach(symbol => {
+        // API endpoint for each stock
+        const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`;
+
+        // AJAX request
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            const stockData = response['Global Quote'];
+
+            // Extract the required data (e.g., price, volume)
+            const price = stockData['05. price'];
+            const volume = stockData['06. volume'];
+
+            // Create a div for each stock and display the data
+            const stockDataDiv = document.createElement('div');
+            stockDataDiv.classList.add('stockData');
+            stockDataDiv.innerHTML = `<p>Symbol: ${symbol}</p><p>Price: ${price}</p><p>Volume: ${volume}</p>`;
+
+            // Append the stock data div to the main container
+            const stockContainer = document.getElementById('stockData');
+            stockContainer.appendChild(stockDataDiv);
+          }
+        };
+        xhr.send();
+      });
+    }
+
+    // Fetch stock data when the page loads
+    window.onload = fetchStockData;
+  </script>
+</body>
+</html>
