@@ -4,9 +4,13 @@ pipeline {
     stages {
         stage('Restart Deployment') {
             steps {
-                sh 'aws eks update-kubeconfig --name Rocky-Cluster'
-                
+                script {
+                    withAWS(credentials: 'aws_creds') {
+                        sh 'aws eks update-kubeconfig --name Rocky-Cluster'
+                }
+                               
             }
+        }
         }
 
         stage('Build Docker image') {
