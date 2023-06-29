@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rocky-service
+  name: team4-service
 spec:
   selector:
-    app: rockyapp
+    app: team4app
   ports:
     - protocol: TCP
       port: 80
