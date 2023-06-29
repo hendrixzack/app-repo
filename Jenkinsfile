@@ -5,7 +5,7 @@ pipeline {
         stage('Restart Deployment') {
             steps {
                 script {
-                    withAWS(credentials: 'aws_creds') {
+                    withAWS(credentials: 'aws_creds', region:'us-east-1') {
                         sh 'aws eks update-kubeconfig --name Rocky-Cluster'
                 }
                                
